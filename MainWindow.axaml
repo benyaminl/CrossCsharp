@@ -1,0 +1,11 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="CrossCsharp.MainWindow"
+        Width="800" Height="450"
+        Title="CrossCsharp">
+    <Canvas Width="300" Height="300">
+    <Label Canvas.Top="50" Canvas.Left="50" Content="Longggggg Text"/>
+    <Button Canvas.Left="0" Name="btnHello" Click="BtnHello_Click">Hello World</Button>
+    <Button Canvas.Top="50" Canvas.Left="220" Name="btnNewWindow" Click="BtnNewWindow_Click">New Window</Button>
+    </Canvas>
+</Window>
