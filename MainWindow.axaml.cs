@@ -50,6 +50,12 @@ namespace CrossCsharp
             ctx.LabelText = ctx.InputText;
             Console.WriteLine(ctx.InputText);
         }
+
+        public void BtnShowLogin_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new ChatLanding();
+            win.ShowDialog(this);
+        }
  
     }
 }

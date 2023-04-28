@@ -11,5 +11,6 @@
     <Button Canvas.Left="0" Name="btnHello" Click="BtnHello_Click">Hello World</Button>
     <Button Canvas.Top="80" Canvas.Left="220" Name="btnNewWindow" Click="BtnNewWindow_Click">New Window</Button> 
     <Button Canvas.Top="120" Canvas.Left="220" Name="btnNewWindowChat" Click="BtnNewWindowChat_Click">Chat Window</Button> 
+    <Button Canvas.Top="150" Canvas.Left="220" Name="btnShowLogin" Click="BtnShowLogin_Click">Chat Login</Button> 
     </Canvas>
 </Window>
