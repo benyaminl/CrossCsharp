@@ -13,8 +13,8 @@
     </Window.Styles>
 
     <Canvas Width="350" Height="350">
-    <TextBox Canvas.Left="0" Canvas.Top="3" Classes="chat" Text="{Binding ChatHistory, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True"/>
-    <TextBox Canvas.Left="0" Canvas.Top="220" Text="{Binding ChatBox, Mode=TwoWay}" Width="300"/>
+    <TextBox Canvas.Left="0" Canvas.Top="3" Name="ChatHistory" Classes="chat" Text="{Binding ChatHistory, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True"/>
+    <TextBox Canvas.Left="0" Canvas.Top="220" Name="ChatInputBox" Text="{Binding ChatBox, Mode=TwoWay}" Width="300"/>
     <Button Canvas.Left="0" Canvas.Top="255" Name="btnAlert" Click="BtnSend_Click">Print Value</Button>
     </Canvas>
 </Window>

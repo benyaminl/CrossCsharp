@@ -20,7 +20,7 @@ namespace CrossCsharp.User
 
         public void BtnSend_Click(object sender, RoutedEventArgs e)
         {
-            ctx.ChatHistory += ctx.ChatBox + "\n";
+            this.ChatHistory.Text += ctx.ChatBox + "\n";
             ctx.ChatBox = "";
         }
     }
