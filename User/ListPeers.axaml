@@ -1,0 +1,10 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="CrossCsharp.User.ListPeers"
+        Width="400" Height="500"
+        Title="Peers">
+
+    <Canvas Width="350" Height="400">
+    <ListBox Items="{Binding Peers}"/>
+    </Canvas>
+</Window>
