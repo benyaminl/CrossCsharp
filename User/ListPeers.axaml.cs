@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using CrossCsharp.ViewModel;
 using Avalonia.Markup.Xaml;
 using CrossCsharp.Chat;
+using System.Timers;
 
 namespace CrossCsharp.User
 {
@@ -24,16 +25,11 @@ namespace CrossCsharp.User
         public override void Show()
         {
             base.Show();
-            ctx.Peers.Add("ABC");
-            ctx.Peers.Add("DEF");
+        }
 
-            if (this.service != null)
-            {    
-                this.service.GetListOfPeers().ForEach(d => {
-                    ctx.Peers.Add(d.ipAddress);
-                    ctx.Peers = ctx.Peers;
-                });
-            }
+        public void OnClick(object sender, RoutedEventArgs e)
+        {
+            ctx._peers.Edit(d => d.Add("aaa"));
         }
     }
 }

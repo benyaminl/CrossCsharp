@@ -5,6 +5,7 @@
         Title="Peers">
 
     <Canvas Width="350" Height="400">
-    <ListBox Items="{Binding Peers}"/>
+    <ListBox Items="{Binding Peers, Mode=TwoWay}" Height="300"/>
+    <Button Click="OnClick" Canvas.Top="320" >Hai</Button>
     </Canvas>
 </Window>

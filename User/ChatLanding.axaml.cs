@@ -38,7 +38,7 @@ namespace CrossCsharp.User
 
             ListPeers wnd = new ListPeers()
             {
-                DataContext = new ListPeersViewModel(),
+                DataContext = new ListPeersViewModel(service),
                 service = this.service
             };
 
