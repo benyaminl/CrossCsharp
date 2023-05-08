@@ -35,9 +35,10 @@ namespace CrossCsharp.ViewModel
             this.target = target;
         }
 
-        public void SendMessage()
+        public async void SendMessage()
         {
             this.svc?.SendChat(this.target ?? "255.255.255.255", this._chat);
+            await Task.Delay(200);
             this.LoadMessage();
             this.ChatBox = "";
         }
