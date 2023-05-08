@@ -1,6 +1,8 @@
 using System;
 using System.Timers;
+using Avalonia.Controls.Selection;
 using CrossCsharp.Chat;
+using CrossCsharp.User;
 using DynamicData;
 using DynamicData.Binding;
 using ReactiveUI;
@@ -12,11 +14,13 @@ namespace CrossCsharp.ViewModel
         // This collection using Reactive Source List is sad... 
         // @see https://stackoverflow.com/a/53709090/4906348
         // @see https://www.reactiveui.net/docs/handbook/collections/#using-dynamicdata-with-reactiveui
-        public SourceList<string> _peers { get; } = new SourceList<string>();
+        protected SourceList<string> _peers { get; } = new SourceList<string>();
 
         public IObservableCollection<string> Peers { get;  } = new ObservableCollectionExtended<string>();
         protected ChatService? service;
         protected System.Timers.Timer? t;
+
+        protected SelectionModel<String> Selection { get; }
 
         public ListPeersViewModel(ChatService? svc = null)
         {
@@ -36,6 +40,9 @@ namespace CrossCsharp.ViewModel
                 t.Enabled = true;
                 t.AutoReset = true;
             }
+
+            Selection = new SelectionModel<String>();
+            Selection.SelectionChanged += SelectionChanged;
         }
 
         public void TimerTick(Object? source = null, ElapsedEventArgs? e = null)
@@ -45,6 +52,41 @@ namespace CrossCsharp.ViewModel
             this.service?.GetListOfPeers().ForEach(d => {
                 this._peers.Add(d.ipAddress);
             });
+        }
+
+        int selectedIndex;
+
+        public int SelectedIndex
+        {
+            get => selectedIndex;
+            set => this.RaiseAndSetIfChanged(ref selectedIndex, value);
+        }
+
+        Dictionary<string, ChatWindow> chatWindows = new Dictionary<string, ChatWindow>();
+
+        /// <summary>
+        /// This is the event of change items, as MVVM, binded to selection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SelectionChanged(object sender, SelectionModelSelectionChangedEventArgs e)
+        {
+            Console.WriteLine(e.SelectedItems[0]);
+            ChatWindow window;
+            if (this.chatWindows.Where(d => d.Key.Equals(e.SelectedItems[0].ToString())).Count() > 0)
+            {
+                window = chatWindows[e.SelectedItems[0].ToString()];
+            } 
+            else
+            {
+                window = new ChatWindow()
+                {
+                    DataContext = new ChatWindowViewModel(this.service, e.SelectedItems[0].ToString())
+                };
+    
+            }
+            
+            window.Show();
         }
     }
 }

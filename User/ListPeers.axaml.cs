@@ -22,14 +22,9 @@ namespace CrossCsharp.User
             InitializeComponent();
         }
 
-        public override void Show()
+        public void PeersClick(object sender, RoutedEventArgs e)
         {
-            base.Show();
-        }
-
-        public void OnClick(object sender, RoutedEventArgs e)
-        {
-            ctx._peers.Edit(d => d.Add("aaa"));
+            Console.WriteLine(sender);
         }
     }
 }

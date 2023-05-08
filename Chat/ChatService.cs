@@ -190,7 +190,7 @@ public class ChatService
         this.clientSocket.SendTo(msgByte, (new IPEndPoint(IPAddress.Parse(toIP), 11111)) as EndPoint);
     }
 
-    public Dictionary<string, List<ChatRow>> GetChatHistory()
+    public Dictionary<string, List<ChatRow>> GetAllChatHistory()
     {
         var chatCopy = new Dictionary<string, List<ChatRow>>();
 
@@ -201,6 +201,33 @@ public class ChatService
 
         return chatCopy;
     }
+
+    public List<ChatRow> GetChatHistory(string toIP)
+    {
+        List<ChatRow> chatRows = new List<ChatRow>();
+        // Get The Key Pair
+        string key = this.chatPairKey.Where(d => d.Key.Contains(toIP)).FirstOrDefault().Value;
+        
+        // Record only Keypair chat
+        if (key != null) 
+        {
+            chatRows = this.chatData[key];
+        }
+
+        return chatRows;
+    }
+
+    public string GetChatHistoryAsString(string toIP)
+    {
+        var chat = "";
+        List<ChatRow> data = this.GetChatHistory(toIP);
+        data.ForEach(d =>
+        {
+            chat += d.from.username + ": " + d.message + "\n";
+        });
+        return chat;
+    }
+
 }
 
 public struct PeerDetail

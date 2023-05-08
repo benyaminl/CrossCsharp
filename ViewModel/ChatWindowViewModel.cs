@@ -1,4 +1,5 @@
 using System;
+using CrossCsharp.Chat;
 using ReactiveUI;
 
 namespace CrossCsharp.ViewModel
@@ -24,6 +25,26 @@ namespace CrossCsharp.ViewModel
                 _chat = value;
                 this.RaisePropertyChanged(nameof(ChatBox));
             } 
+        }
+
+        private ChatService? svc;
+        private string? target;
+        public ChatWindowViewModel(ChatService? svc = null, string? target = null)
+        {
+            this.svc = svc;
+            this.target = target;
+        }
+
+        public void SendMessage()
+        {
+            this.svc?.SendChat(this.target ?? "255.255.255.255", this._chat);
+            this.LoadMessage();
+            this.ChatBox = "";
+        }
+
+        public void LoadMessage()
+        {
+            this.ChatHistory = this.svc?.GetChatHistoryAsString(this.target ?? "255.255.255.255") ?? "";
         }
     }
 }

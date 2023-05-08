@@ -18,10 +18,15 @@ namespace CrossCsharp.User
             InitializeComponent();
         }
 
+        public override void Show()
+        {
+            base.Show();
+            this.ctx.LoadMessage();
+        }
+
         public void BtnSend_Click(object sender, RoutedEventArgs e)
         {
-            this.ChatHistory.Text += ctx.ChatBox + "\n";
-            ctx.ChatBox = "";
+            this.ctx.SendMessage();
         }
     }
 }
