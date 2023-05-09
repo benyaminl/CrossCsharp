@@ -50,7 +50,7 @@ namespace CrossCsharp.ViewModel
             this._peers.Clear();
 
             this.service?.GetListOfPeers().ForEach(d => {
-                this._peers.Add(d.ipAddress);
+                this._peers.Add(d.ipAddress + " - " + d.username);
             });
         }
 
@@ -73,15 +73,16 @@ namespace CrossCsharp.ViewModel
         {
             Console.WriteLine(e.SelectedItems[0]);
             ChatWindow window;
+            string ip = e.SelectedItems[0].ToString().Split(" - ")[0];
             if (this.chatWindows.Where(d => d.Key.Equals(e.SelectedItems[0].ToString())).Count() > 0)
             {
-                window = chatWindows[e.SelectedItems[0].ToString()];
+                window = chatWindows[ip];
             } 
             else
             {
                 window = new ChatWindow()
                 {
-                    DataContext = new ChatWindowViewModel(this.service, e.SelectedItems[0].ToString())
+                    DataContext = new ChatWindowViewModel(this.service, ip)
                 };
     
             }
