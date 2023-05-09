@@ -16,6 +16,19 @@ public class ChatService
     private Dictionary<string, List<ChatRow>> chatData = new Dictionary<string, List<ChatRow>>();
 
     private Dictionary<string, string> chatPairKey = new Dictionary<string, string>();
+    public event EventHandler? receiveChat;
+
+    // Define a method to raise the event
+    protected virtual void OnReceivedChat(EventArgs e)
+    {
+        // Check if there are any subscribers
+        if (receiveChat != null)
+        {
+            // Invoke the event
+            receiveChat(sender: null,e: e);
+        }
+    }
+
 
     public ChatService(Socket clientSocket, string user)
     {
@@ -172,6 +185,8 @@ public class ChatService
         });
 
         this.chatData[key] = chatRows; // replace the old chat
+        // send / invoke events
+        OnReceivedChat(new EventArgs());
     }
 
     public void SendChat(string toIP, string msg)

@@ -33,19 +33,32 @@ namespace CrossCsharp.ViewModel
         {
             this.svc = svc;
             this.target = target;
+            if (this.svc != null)
+                this.svc.receiveChat += LoadMessageListener;
         }
 
-        public async void SendMessage()
+        public void SendMessage()
         {
             this.svc?.SendChat(this.target ?? "255.255.255.255", this._chat);
-            await Task.Delay(200);
-            this.LoadMessage();
+            // There are no need to reload the message using void directly, as I made
+            // A simple C# event listener
             this.ChatBox = "";
         }
 
         public void LoadMessage()
         {
             this.ChatHistory = this.svc?.GetChatHistoryAsString(this.target ?? "255.255.255.255") ?? "";
+        }
+
+        /// <summary>
+        /// This is a wrapper for Reload the chat when someone chat us, it update the chat view
+        /// Still not perfect, just at least a jump
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void LoadMessageListener(object? sender, EventArgs e)
+        {
+            this.LoadMessage();
         }
     }
 }
